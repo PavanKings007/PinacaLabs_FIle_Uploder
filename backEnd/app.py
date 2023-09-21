@@ -22,7 +22,19 @@ def insert_data():
         collection = db["mycollection"]
 
         # Get data from the request
-        data = request.get_json()
+        data = request.json
+        filename = data.get('filename')
+        # print(data.get('filename'))
+
+
+        for root, dirs, files in os.walk('/'):
+          if filename in files:
+             file_path = os.path.join(root, filename)
+             break
+
+        pathOfFile = file_path
+        data["path"] = pathOfFile
+
 
         # Make a copy of the data object
         data_copy = data.copy()
@@ -37,6 +49,10 @@ def insert_data():
         # Close the MongoDB connection
         client.close()
 
+
+        # data["path"] = pathOfFile
+
+
         # Include the 'data' object in the response
         response = {
             "message": "Data created",
@@ -47,6 +63,7 @@ def insert_data():
 
     except Exception as e:
         # Handle any errors
+        print(e)
         response = {"error": str(e)}
         return jsonify(response), 500
 

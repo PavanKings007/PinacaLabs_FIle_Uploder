@@ -10,6 +10,8 @@ const fileUploadDone = document.getElementById('fileUploadDone');
 const mainContainer = document.getElementById('mainContainer');
 const cloudColor = document.getElementById('cloudColor');
 
+let fileData;
+
 let mainContainerAfter = window.getComputedStyle(mainContainer,'::after'); 
 let mainContainerBefore = window.getComputedStyle(mainContainer,'::before'); 
 
@@ -22,6 +24,7 @@ inputUpload.addEventListener('change',(e)=>{
     const date = new Date();
     const fullDate = date.getDate().toString()+"/"+date.getMonth().toString()+"/"+date.getFullYear().toString();
     const file = e.target.files[0];
+fileData = file;
     fileName.innerHTML = file.name;
     fileName.style.color = '#cbe3f8';
     cloudColor.style.fill = "#cbe3f8";
@@ -81,6 +84,9 @@ return str;
 }
 
 function sendData(){
+    // let formData = new FormData();
+    // formData.append('uploadFileData', fileData);
+    // formData.append('user', new Blob([JSON.stringify(userDetails)], { type: 'application/json' }));
 
     document.documentElement.style.setProperty("--afterDisplay", "block");
 
@@ -88,16 +94,21 @@ function sendData(){
     let metaDataFileSize = document.getElementById('metaDataFileSize');
     let metaDataFileFormate = document.getElementById('metaDataFileFormate');
     let metaDataFileDate = document.getElementById('metaDataFileDate');
+    let metaDataFilePath = document.getElementById('metaDataFilePath');
 
     fetch('http://localhost:8800/data',{
         method:'POST',
         headers:{
             "Content-Type":"application/json",
         },
-        body:JSON.stringify(userDetails),
+        body:JSON.stringify(userDetails)
+       
+        
     }).then((response)=>{
+        
         return response.json();
     }).then((data)=>{
+        console.log(data);
     form.reset();
     fileName.style.color = '';
     cloudColor.style.fill = "";
@@ -119,6 +130,9 @@ function sendData(){
         metaDataFileSize.innerHTML = data.metaData.filesize;
         metaDataFileFormate.innerHTML = data.metaData.fileformate;
         metaDataFileDate.innerHTML = data.metaData.uploadtimestrap;
+        metaDataFilePath.innerHTML = data.metaData.path;
+    }).catch((error)=>{
+        console.log(error);
     })
     
 
