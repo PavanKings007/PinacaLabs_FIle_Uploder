@@ -1,14 +1,17 @@
 # client = MongoClient("mongodb+srv://pavankumarkings007:9701004594Pa%40@fashionhub.m6v74y6.mongodb.net/")
 import json
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
 from bson import ObjectId
 
+load_dotenv()
+import os
 app = Flask(__name__)
 CORS(app)
 
-mongodb_url = "mongodb+srv://pavankumarkings007:9701004594Pa%40@fashionhub.m6v74y6.mongodb.net/"
+mongodb_url = os.getenv("DATABASE_URL")
 
 @app.route('/data', methods=['POST'])
 def insert_data():
