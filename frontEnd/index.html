@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="./images_icons/pinacaIcon.svg" type="image/x-icon">
+    <title>Pinaca Lab's</title>
+</head>
+
+<body>
+    <div id="mainContainer">
+        <h2>Upload your File</h2>
+        <div id="formAndButton">
+        <form>
+            <input type="file" class="inputUpload" hidden  />
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256"
+                style="fill:#55c1ef">
+                <g fill-opacity="0" fill="#dddddd" fill-rule="nonzero" stroke="none" stroke-width="1"
+                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
+                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                    style="mix-blend-mode: normal">
+                    <path d="M0,256v-256 h256v256z" id="bgRectangle"></path>
+                </g>
+                <g id="cloudColor" fill="gray" fill-opacity="0.2" fill-rule="nonzero" stroke="#323131" stroke-width="1" stroke-linecap="butt"
+                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                    style="mix-blend-mode: normal">
+                    <g transform="scale(5.12,5.12)">
+                        <path
+                            d="M43.98828,23.54297c-0.23828,-5.85547 -5.07812,-10.54297 -10.98828,-10.54297c-1.01953,0 -1.99609,0.13281 -2.96484,0.40625c-2.23828,-3.35156 -6.01562,-5.40625 -10.03516,-5.40625c-6.41797,0 -11.67578,5.0625 -11.98437,11.40625c-4.69141,1.28906 -8.01562,5.62109 -8.01562,10.59375c0,6.06641 4.93359,11 11,11h30c4.96484,0 9,-4.03516 9,-9c0,-3.83203 -2.48437,-7.26562 -6.01172,-8.45703zM30.29297,26.70703l-4.29297,-4.29297v11.58594h-2v-11.58594l-4.29297,4.29297l-1.41406,-1.41406l6.70703,-6.70703l6.70703,6.70703z">
+                        </path>
+                    </g>
+                </g>
+            </svg>
+            <div style="
+            width: 50%;
+            overflow: hidden;
+           display: flex;
+           justify-content: center;
+           ">
+            <p>Select a File</p>
+        </div>
+        </form>
+        <div id="button">
+            <div id="fileUploadDone">
+                <div id="greenTick">
+                    <div id="tick"></div>
+                </div>
+                <div style="width: 90%;overflow: hidden;">
+                <h4></h4>
+            </div>
+            </div>
+        <button onclick="sendData()" disabled>Upload</button>
+    </div>
+    </div>
+    </div>
+    <div id="userDetails">
+        <h2>File Details</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>:</td>
+                <td id="metaDataFileName">---</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>:</td>
+                <td id="metaDataFileSize">---</td>
+            </tr>
+            <tr>
+                <th>Fromat</th>
+                <td>:</td>
+                <td id="metaDataFileFormate">---</td>
+            </tr>
+            <tr>
+                <th>Uploaded date</th>
+                <td>:</td>    
+                <td id="metaDataFileDate">---</td>
+            </tr>
+        </table>
+    </div>
+    <script src="./code.js"></script>
+</body>
+
+</html>
