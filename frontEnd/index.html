@@ -1,92 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" href="./images_icons/pinacaIcon.svg" type="image/x-icon">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="shortcut icon"
+      href="./images_icons/pinacaIcon.svg"
+      type="image/x-icon"
+    />
     <title>Pinaca Lab's</title>
-</head>
+  </head>
 
-<body>
-    <div id="mainContainer">
-        <h2>Upload your File</h2>
-        <div id="formAndButton">
-        <form>
-            <input type="file" class="inputUpload" hidden  />
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256"
-                style="fill:#55c1ef">
-                <g fill-opacity="0" fill="#dddddd" fill-rule="nonzero" stroke="none" stroke-width="1"
-                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
-                    stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                    style="mix-blend-mode: normal">
-                    <path d="M0,256v-256 h256v256z" id="bgRectangle"></path>
+  <body>
+    
+<div class="error" id="errorNoti">
+    <div class="error__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" height="24" fill="none"><path fill="#393a37" d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"></path></svg>
+    </div>
+    <div class="error__title">File Not Found please upload the file...</div>
+</div>
+    <div style="overflow-x: hidden; width: 42%" id="slider">
+      <div style="width: 120vw; display: flex; justify-content: space-between">
+        <div id="mainContainer">
+          <h2>Upload your File</h2>
+          <div id="formAndButton">
+            <form>
+              <input type="file" class="inputUpload" hidden />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                x="0px"
+                y="0px"
+                width="100"
+                height="100"
+                viewBox="0,0,256,256"
+                style="fill: #55c1ef"
+              >
+                <g
+                  fill-opacity="0"
+                  fill="#dddddd"
+                  fill-rule="nonzero"
+                  stroke="none"
+                  stroke-width="1"
+                  stroke-linecap="butt"
+                  stroke-linejoin="miter"
+                  stroke-miterlimit="10"
+                  stroke-dasharray=""
+                  stroke-dashoffset="0"
+                  font-family="none"
+                  font-weight="none"
+                  font-size="none"
+                  text-anchor="none"
+                  style="mix-blend-mode: normal"
+                >
+                  <path d="M0,256v-256 h256v256z" id="bgRectangle"></path>
                 </g>
-                <g id="cloudColor" fill="gray" fill-opacity="0.2" fill-rule="nonzero" stroke="#323131" stroke-width="1" stroke-linecap="butt"
-                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                    style="mix-blend-mode: normal">
-                    <g transform="scale(5.12,5.12)">
-                        <path
-                            d="M43.98828,23.54297c-0.23828,-5.85547 -5.07812,-10.54297 -10.98828,-10.54297c-1.01953,0 -1.99609,0.13281 -2.96484,0.40625c-2.23828,-3.35156 -6.01562,-5.40625 -10.03516,-5.40625c-6.41797,0 -11.67578,5.0625 -11.98437,11.40625c-4.69141,1.28906 -8.01562,5.62109 -8.01562,10.59375c0,6.06641 4.93359,11 11,11h30c4.96484,0 9,-4.03516 9,-9c0,-3.83203 -2.48437,-7.26562 -6.01172,-8.45703zM30.29297,26.70703l-4.29297,-4.29297v11.58594h-2v-11.58594l-4.29297,4.29297l-1.41406,-1.41406l6.70703,-6.70703l6.70703,6.70703z">
-                        </path>
-                    </g>
+                <g
+                  id="cloudColor"
+                  fill="gray"
+                  fill-opacity="0.2"
+                  fill-rule="nonzero"
+                  stroke="#323131"
+                  stroke-width="1"
+                  stroke-linecap="butt"
+                  stroke-linejoin="miter"
+                  stroke-miterlimit="10"
+                  stroke-dasharray=""
+                  stroke-dashoffset="0"
+                  font-family="none"
+                  font-weight="none"
+                  font-size="none"
+                  text-anchor="none"
+                  style="mix-blend-mode: normal"
+                >
+                  <g transform="scale(5.12,5.12)">
+                    <path
+                      d="M43.98828,23.54297c-0.23828,-5.85547 -5.07812,-10.54297 -10.98828,-10.54297c-1.01953,0 -1.99609,0.13281 -2.96484,0.40625c-2.23828,-3.35156 -6.01562,-5.40625 -10.03516,-5.40625c-6.41797,0 -11.67578,5.0625 -11.98437,11.40625c-4.69141,1.28906 -8.01562,5.62109 -8.01562,10.59375c0,6.06641 4.93359,11 11,11h30c4.96484,0 9,-4.03516 9,-9c0,-3.83203 -2.48437,-7.26562 -6.01172,-8.45703zM30.29297,26.70703l-4.29297,-4.29297v11.58594h-2v-11.58594l-4.29297,4.29297l-1.41406,-1.41406l6.70703,-6.70703l6.70703,6.70703z"
+                    ></path>
+                  </g>
                 </g>
-            </svg>
-            <div style="
-            width: 50%;
-            overflow: hidden;
-           display: flex;
-           justify-content: center;
-           ">
-            <p>Select a File</p>
-        </div>
-        </form>
-        <div id="button">
-            <div id="fileUploadDone">
+              </svg>
+              <div
+                style="
+                  width: 50%;
+                  overflow: hidden;
+                  display: flex;
+                  justify-content: center;
+                "
+              >
+                <p>Select a File</p>
+              </div>
+            </form>
+            <div id="button">
+              <div id="fileUploadDone">
                 <div id="greenTick">
-                    <div id="tick"></div>
+                  <div id="tick"></div>
                 </div>
-                <div style="width: 90%;overflow: hidden;">
-                <h4></h4>
+                <div style="width: 90%; overflow: hidden">
+                  <h4></h4>
+                </div>
+              </div>
+              <button onclick="sendData()" disabled>Upload</button>
             </div>
-            </div>
-        <button onclick="sendData()" disabled>Upload</button>
+          </div>
+        </div>
+
+        <div id="mainContainer">
+          <div style="position: absolute; top: 0px; padding-top: 20px">
+            <h2>Search your File</h2>
+          </div>
+          <div style="display: flex">
+            <input type="search" placeholder="fileName.extention" id="searchInput" onkeyup="handleSearchInput(event)"/>
+            <button id="searchButton" onclick="searchData()">
+              <?xml version="1.0" ?><!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+              <svg
+                height="20px"
+                id="Layer_1"
+                style="enable-background: new 0 0 512 512"
+                version="1.1"
+                viewBox="0 0 512 512"
+                width="20px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <path
+                fill="#ffff"
+                  d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
+    <div id="left">
+      <?xml version="1.0" ?><svg
+        viewBox="0 0 32 32"
+        xmlns="http://www.w3.org/2000/svg"
+        width="50"
+        style="transform: rotate(0deg); transition: all 0.5s ease-in-out 0s"
+        id="arrow"
+      >
+        <title />
+        <g data-name="Layer 2" id="Layer_2">
+          <path
+            fill="#ffff"
+            d="M22,9a1,1,0,0,0,0,1.42l4.6,4.6H3.06a1,1,0,1,0,0,2H26.58L22,21.59A1,1,0,0,0,22,23a1,1,0,0,0,1.41,0l6.36-6.36a.88.88,0,0,0,0-1.27L23.42,9A1,1,0,0,0,22,9Z"
+          />
+        </g>
+      </svg>
     </div>
-    </div>
+    <div id="massage">Search...</div>
     <div id="userDetails">
-        <h2>File Details</h2>
-        <table>
-            <tr>
-                <th>Name</th>
-                <td>:</td>
-                <td id="metaDataFileName">---</td>
-            </tr>
-            <tr>
-                <th>Size</th>
-                <td>:</td>
-                <td id="metaDataFileSize">---</td>
-            </tr>
-            <tr>
-                <th>Fromat</th>
-                <td>:</td>
-                <td id="metaDataFileFormate">---</td>
-            </tr>
-            <tr>
-                <th>Uploaded date</th>
-                <td>:</td>    
-                <td id="metaDataFileDate">---</td>
-            </tr>
-            <tr>
-                <th>File Path</th>
-                <td>:</td>    
-                <td id="metaDataFilePath">---</td>
-            </tr>
-        </table>
+      <h2>File Details</h2>
+      <table>
+        <tr>
+          <th>Name</th>
+          <td>:</td>
+          <td id="metaDataFileName">---</td>
+        </tr>
+        <tr>
+          <th>Size</th>
+          <td>:</td>
+          <td id="metaDataFileSize">---</td>
+        </tr>
+        <tr>
+          <th>Fromat</th>
+          <td>:</td>
+          <td id="metaDataFileFormate">---</td>
+        </tr>
+        <tr>
+          <th>Uploaded date</th>
+          <td>:</td>
+          <td id="metaDataFileDate">---</td>
+        </tr>
+        <tr>
+          <th>File Path</th>
+          <td>:</td>
+          <td id="metaDataFilePath">---</td>
+        </tr>
+      </table>
     </div>
     <script src="./code.js"></script>
-</body>
-
+  </body>
 </html>

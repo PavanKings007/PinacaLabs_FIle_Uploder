@@ -9,6 +9,68 @@ const sub = document.getElementById('sub');
 const fileUploadDone = document.getElementById('fileUploadDone');
 const mainContainer = document.getElementById('mainContainer');
 const cloudColor = document.getElementById('cloudColor');
+const slider = document.getElementById('slider');
+const left = document.getElementById('left');
+const massage = document.getElementById('massage');
+const arrow = document.getElementById('arrow');
+
+left.addEventListener('mouseover',()=>{
+    massage.style.opacity = "1"
+})
+left.addEventListener('mouseleave',()=>{
+    massage.style.opacity = ""
+})
+
+function slide(){
+    
+    arrow.style.transform = "rotateY(180deg)";
+
+    const scrollDistance = 1200; // Adjust this value as needed
+
+    // Calculate the new scrollLeft value
+    const newScrollLeft = slider.scrollLeft + scrollDistance;
+
+    // Scroll the slider to the new position
+    slider.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth' // You can use 'auto' for instant scrolling
+    });
+}
+function slideInvert(){
+    arrow.style.transform = "rotateY(0deg)";
+
+    const scrollDistance = 1200; // Adjust this value as needed
+
+    // Calculate the new scrollLeft value
+    const newScrollLeft = slider.scrollLeft - scrollDistance;
+
+    // Scroll the slider to the new position
+    slider.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth' // You can use 'auto' for instant scrolling
+    });
+}
+let count = 0;
+left.addEventListener('click',()=>{
+    metaDataFileName.innerHTML = '---';
+        metaDataFileSize.innerHTML = '---';
+        metaDataFileFormate.innerHTML = '---';
+        metaDataFileDate.innerHTML = '---';
+        metaDataFilePath.innerHTML = '---';
+        searchInput.value = '';
+        resetForm();
+        if(count == 0){
+            slide();
+        massage.innerHTML = "Upload...";
+        count++;
+    }
+    else{
+        slideInvert();
+        massage.innerHTML = "Search...";
+        count--;
+    }
+
+})
 
 let fileData;
 
@@ -82,6 +144,11 @@ if(len>=10){
 }
 return str;
 }
+let metaDataFileName = document.getElementById('metaDataFileName');
+let metaDataFileSize = document.getElementById('metaDataFileSize');
+let metaDataFileFormate = document.getElementById('metaDataFileFormate');
+let metaDataFileDate = document.getElementById('metaDataFileDate');
+let metaDataFilePath = document.getElementById('metaDataFilePath');
 
 function sendData(){
     // let formData = new FormData();
@@ -90,11 +157,6 @@ function sendData(){
 
     document.documentElement.style.setProperty("--afterDisplay", "block");
 
-    let metaDataFileName = document.getElementById('metaDataFileName');
-    let metaDataFileSize = document.getElementById('metaDataFileSize');
-    let metaDataFileFormate = document.getElementById('metaDataFileFormate');
-    let metaDataFileDate = document.getElementById('metaDataFileDate');
-    let metaDataFilePath = document.getElementById('metaDataFilePath');
 
     fetch('http://localhost:8800/data',{
         method:'POST',
@@ -108,7 +170,74 @@ function sendData(){
         
         return response.json();
     }).then((data)=>{
-        console.log(data);
+    
+        resetForm();
+
+        metaDataFileName.innerHTML = data.metaData.filename;
+        metaDataFileSize.innerHTML = data.metaData.filesize;
+        metaDataFileFormate.innerHTML = data.metaData.fileformate;
+        metaDataFileDate.innerHTML = data.metaData.uploadtimestrap;
+        metaDataFilePath.innerHTML = data.metaData.path;
+    }).catch((error)=>{
+        alert(error);
+    })
+}
+
+
+const searchInput = document.getElementById('searchInput');
+function searchData(){
+    const errorNoti = document.getElementById('errorNoti');
+
+
+    const fileName = {
+        'filename':searchInput.value
+    }
+    fetch('http://localhost:8800/search',{
+        method:'POST',
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(fileName)
+    }).then((response)=>{
+        if(response.ok){
+            return response.json();
+        }
+        else{
+            return response.json();
+        }
+    }).then((data)=>{
+        if(Object.keys(data)[0] === "error"){
+                errorNoti.style.opacity = "1";
+
+                setTimeout(() => {
+                    errorNoti.style.opacity = "";
+                  }, 2000);
+
+                  slideInvert();
+        massage.innerHTML = "Search...";
+        count = 0;
+        searchInput.value = '';
+        }
+        else{
+            metaDataFileName.innerHTML = data.filename;
+        metaDataFileSize.innerHTML = data.filesize;
+        metaDataFileFormate.innerHTML = data.fileformate;
+        metaDataFileDate.innerHTML = data.uploadtimestrap;
+        metaDataFilePath.innerHTML = data.path;
+        }
+    }).catch((error)=>{
+        alert(error);
+    })
+
+}
+
+function handleSearchInput(event) {
+    if (event.keyCode === 13) {
+        document.getElementById("searchButton").click();
+    }
+  }
+
+  function resetForm(){
     form.reset();
     fileName.style.color = '';
     cloudColor.style.fill = "";
@@ -125,18 +254,4 @@ function sendData(){
     buttonDiv.style.justifyContent = '';
     userDetails = new Object(); 
     document.documentElement.style.setProperty("--afterDisplay", "none");
-
-        metaDataFileName.innerHTML = data.metaData.filename;
-        metaDataFileSize.innerHTML = data.metaData.filesize;
-        metaDataFileFormate.innerHTML = data.metaData.fileformate;
-        metaDataFileDate.innerHTML = data.metaData.uploadtimestrap;
-        metaDataFilePath.innerHTML = data.metaData.path;
-    }).catch((error)=>{
-        console.log(error);
-    })
-    
-
-
-   
-
-}
+  }

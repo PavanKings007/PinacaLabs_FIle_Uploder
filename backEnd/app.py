@@ -1,10 +1,10 @@
-# client = MongoClient("mongodb+srv://pavankumarkings007:9701004594Pa%40@fashionhub.m6v74y6.mongodb.net/")
 import json
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient
 from bson import ObjectId
+from waitress import serve
 
 load_dotenv()
 import os
@@ -12,20 +12,18 @@ app = Flask(__name__)
 CORS(app)
 
 mongodb_url = os.getenv("DATABASE_URL")
+# Connect to MongoDB
+client = MongoClient(mongodb_url)
+db = client["mydatabase"]
+collection = db["mycollection"]
 
 @app.route('/data', methods=['POST'])
 def insert_data():
     try:
-        # Connect to MongoDB
-        client = MongoClient(mongodb_url)
-        db = client["mydatabase"]
-        collection = db["mycollection"]
-
+       
         # Get data from the request
         data = request.json
         filename = data.get('filename')
-        # print(data.get('filename'))
-
 
         for root, dirs, files in os.walk('/'):
           if filename in files:
@@ -47,7 +45,7 @@ def insert_data():
         result = collection.insert_one(data_copy)
 
         # Close the MongoDB connection
-        client.close()
+        # client.close()
 
 
         # data["path"] = pathOfFile
@@ -63,9 +61,29 @@ def insert_data():
 
     except Exception as e:
         # Handle any errors
-        print(e)
         response = {"error": str(e)}
         return jsonify(response), 500
 
+# Get Route
+@app.route('/search', methods=['POST'])
+def serach_data():
+    try:
+        data = request.json
+        fielname = data.get('filename')
+
+
+        fileData = collection.find_one({'filename':fielname})
+
+        if fileData:
+            fileData.pop('_id',None)
+            return jsonify(fileData), 200
+        else:
+            return jsonify({'error':'file not found...'}), 200
+        
+
+    except Exception as e:
+        response = {'error':str(e)}
+        return jsonify(response), 500
+
 if __name__ == "__main__":
-    app.run("localhost", port=8800)
+    app.run(host='0.0.0.0',port=8800)
