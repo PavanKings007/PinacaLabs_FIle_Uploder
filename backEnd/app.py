@@ -22,13 +22,13 @@ def insert_data():
         data = request.json
         filename = data.get('filename')
 
-        for root, dirs, files in os.walk('/'):
-          if filename in files:
-             file_path = os.path.join(root, filename)
-             break
+        # for root, dirs, files in os.walk('/'):
+        #   if filename in files:
+        #      file_path = os.path.join(root, filename)
+        #      break
 
-        pathOfFile = file_path
-        data["path"] = pathOfFile
+        # pathOfFile = file_path
+        data["path"] = '/'+filename
 
 
         # Make a copy of the data object
